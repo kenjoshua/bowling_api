@@ -29,7 +29,9 @@ namespace BowlingAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-        
+            
+            services.AddScoped<IFrameRepository, FrameRepository>();
+            services.AddDbContext<FrameContxt>(o => o.UseSqlite("Data source=games.db"));
             services.AddScoped<IGameRepository, GameRepository>();
             services.AddDbContext<GameContxt>(o => o.UseSqlite("Data source=games.db"));
             services.AddControllers();
