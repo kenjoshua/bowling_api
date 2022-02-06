@@ -56,5 +56,18 @@ namespace BowlingAPI.Controllers
 
             return NoContent();
         }
+        
+        [HttpPost("{:game_id}/shots (create frame)")]
+        public async Task<ActionResult<Frame>> PostFrames([FromBody] Frame frame)
+        {
+            var newFrame = await _frameRepository.Create(frame);
+            return CreatedAtAction(nameof(GetFrames), new { id = newFrame.Id }, newFrame);
+        }
+
+        [HttpGet("{:game_id}/shots/{:id} (read frame)")]
+        public async Task<ActionResult<Frame>> GetFrames(int id)
+        {
+            return await _frameRepository.Get(id);
+        }
     }
 }
